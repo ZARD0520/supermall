@@ -7,12 +7,18 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
+    "axios": "^0.21.1",
+    "better-scroll": "^2.4.1",
+    "core-js": "^3.15.2",
     "vue": "^2.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "css-loader": "^5.2.6",
+    "postcss-loader": "^6.1.1",
+    "style-loader": "^3.0.0",
+    "vue-loader": "^16.3.0",
     "vue-template-compiler": "^2.6.11"
   }
 }
