@@ -1,21 +1,28 @@
 <template>
     <div id="home">
         <nav-bar class="home-nav">
-            <div slot="content">{{title}}</div>
+            <div slot="center">{{title}}</div>
         </nav-bar>
-        <home-swiper :banners="banners"/>
-        <home-recommend :recommends="recommends"/>
-        <feature-view/>
-        <tab-control  
-            class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"/>
-        <goods-list :goods="showGoods"/>
+        <scroll 
+            class="content" ref="scroll" :probe-type="3"
+            @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
+            <home-swiper :banners="banners" v-if="banners.length"/>
+            <home-recommend :recommends="recommends"/>
+            <feature-view></feature-view>
+            <tab-control  class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick">
+            </tab-control>
+            <goods-list :goods="showGoods"></goods-list>
+        </scroll>
+        <back-top @click.native="backClick" v-show="isShowBackTop"/>
     </div>
 </template>
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
+import Scroll from 'components/common/scroll/Scroll'
 import TabControl from 'components/content/tabControl/TabControl'
 import GoodsList from 'components/content/goods/GoodsList'
+import BackTop from 'components/content/backTop/BackTop'
 
 import HomeSwiper from './childComps/HomeSwiper'
 import HomeRecommend from './childComps/HomeRecommend'
@@ -37,7 +44,8 @@ export default {
                 'new':{page:1,list:[]},
                 'sell':{page:1,list:[]}
             },
-            currentType:'pop'
+            currentType:'pop',
+            isShowBackTop:false
         }
     },
     components:{
@@ -46,7 +54,9 @@ export default {
         HomeRecommend,
         FeatureView,
         TabControl,
-        GoodsList
+        GoodsList,
+        Scroll,
+        BackTop
     },
     computed:{
         showGoods(){
@@ -77,6 +87,15 @@ export default {
                     break
             }
         },
+        backClick(){
+            this.$refs.scroll.scrollTo(0,0,300)
+        },
+        contentScroll(position){
+            this.isShowBackTop = -position.y > 1000
+        },
+        loadMore(){
+            this.getHomeGoods(this.currentType)
+        },
 
 
         /**
@@ -93,6 +112,8 @@ export default {
             getHomeGoods(type,page).then(res=>{
                 this.goods[type].list.push(...res.data.list)
                 this.goods[type].page +=1
+
+                this.$refs.scroll.finish()
             })
         }
     }
@@ -101,24 +122,28 @@ export default {
 
 <style scoped>
     #home{
-        padding-top: 44px;
         position: relative;
         height: 100vh;
     }
     .home-nav{
         background-color: orange;
         color: #fff;
-        box-shadow: 0 1px 1px rgba(160,160,0.1);
-        position: fixed;
-        top:0;
-        left: 0;
-        right: 0;
-        z-index: 2;
+        display: flex;
+        text-align: center;
     }
     .tab-control{
-        position: sticky;
-        top:44px;
-        background-color: #fff;
+        position: relative;
         z-index: 2;
+    }
+    /*.content{
+        position: absolute;
+        top:44px;
+        bottom: 49px;
+        left:0;
+        right: 0;
+    }*/
+    .content{
+        height: 100vh;
+        overflow: hidden;
     }
 </style>

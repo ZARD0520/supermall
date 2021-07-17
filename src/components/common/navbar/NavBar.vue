@@ -3,8 +3,8 @@
         <div class="left">
             <slot name="left"></slot>
         </div>
-        <div class="content">
-            <slot name="content"></slot>
+        <div class="center">
+            <slot name="center"></slot>
         </div>
         <div class="right">
             <slot name="right"></slot>
@@ -18,7 +18,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .nav-bar{
         display: flex;
         height: 44px;
@@ -27,12 +27,12 @@
     .left,.right{
         flex:0 0 60px;
     }
-    .content{
+    .center{
         display: flex;
         height: 100%;
         flex:1;
     }
-    .content div{
+    .center div{
         margin: auto;
         font-size: 20px;
     }

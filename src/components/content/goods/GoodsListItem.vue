@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <img :src="goodsItem.show.img" alt="">
-        <div class="goods-info"
+    <div class="goods-item">
+        <img :src="goodsItem.show.img" alt=""/>
+        <div class="goods-info">
             <p>{{goodsItem.title}}</p>
             <span class="price">{{goodsItem.price}}</span>
             <span class="collect">{{goodsItem.cfav}}</span>
@@ -31,11 +31,11 @@ export default {
 
   .goods-item img {
     width: 100%;
+    height: 200px;
     border-radius: 5px;
   }
 
   .goods-info {
-    font-size: 12px;
     position: absolute;
     bottom: 5px;
     left: 0;
@@ -48,16 +48,20 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 3px;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    font-size: 12px;
   }
 
   .goods-info .price {
     color: var(--color-high-text);
     margin-right: 20px;
+    font-size: 12px;
   }
 
   .goods-info .collect {
     position: relative;
+    font-size: 12px;
   }
 
   .goods-info .collect::before {

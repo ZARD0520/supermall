@@ -32,4 +32,9 @@ export default {
         justify-content: space-around;
     }
 
+    .goods .item{
+        width:48%;
+    }
+
+
 </style>

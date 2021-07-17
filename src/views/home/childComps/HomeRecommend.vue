@@ -35,8 +35,9 @@ export default {
         flex:1;
     }
     .recommend-item img{
-        width: 20vw;
-        height: 20vw;
+        width: 70px;
+        height: 70px;
+        margin-bottom: 10px;
     }
     .recommend-item div{
         font-size: 12px;
