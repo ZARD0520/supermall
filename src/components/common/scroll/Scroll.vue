@@ -34,19 +34,31 @@ export default {
             probeType:this.probeType,
             pullUpLoad:this.pullUpLoad
         })
-        this.scroll.on('scroll',(position)=>{
+        if(this.probeType===2||this.probeType===3){
+            this.scroll.on('scroll',(position)=>{
             this.$emit('scroll',position)
-        })
-        this.scroll.on('pullingUp', () => {
-            this.$emit('pullingUp')
-          })
+            })
+        }
+        if(this.pullUpLoad){
+            this.scroll.on('pullingUp', () => {
+                this.$emit('pullingUp')
+            })
+        }
+        
     },
     methods:{
         scrollTo(x,y,ms){
-            this.scroll.scrollTo(x,y,ms)
+            this.scroll && this.scroll.scrollTo(x,y,ms)
         },
         finish(){
             this.scroll.finishPullUp()
+        },
+        refresh(){
+            this.scroll && this.scroll.refresh()
+            console.log('---');
+        },
+        getCurrentY(){
+            return this.scroll && this.scroll.y
         }
     }
 }

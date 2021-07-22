@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive exclude="detail">
+      <router-view/>
+    </keep-alive>
     <main-tab-bar class="index"/>
   </div>
 </template>
@@ -16,7 +18,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   @import "assets/css/base.css";
   .index{
     z-index: 3;

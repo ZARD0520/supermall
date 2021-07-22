@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .goods{
         display: flex;
         flex-wrap: wrap;/*设置是否包裹*/ 

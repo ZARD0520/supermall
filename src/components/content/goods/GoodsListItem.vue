@@ -1,6 +1,6 @@
 <template>
-    <div class="goods-item">
-        <img :src="goodsItem.show.img" alt=""/>
+    <div class="goods-item" @click="itemClick">
+        <img :src="goodsItem.show.img" alt="" @load="imageLoad"/>
         <div class="goods-info">
             <p>{{goodsItem.title}}</p>
             <span class="price">{{goodsItem.price}}</span>
@@ -19,11 +19,29 @@ export default {
                 return {}
             }
         }
+    },
+    methods:{
+      imageLoad(){
+        //图片加载完的通知传到Home组件有三种方法
+        //逐层传递、Vuex、事件总线
+        this.$bus.$emit('ImageLoad')
+      },
+      itemClick(){
+        //跳转到详情页
+        //this.$router.push('/detail?'+this.goodsItem.iid)
+        //query方式
+        const iid = this.goodsItem.iid;
+        this.$router.push({
+          path:'/detail',
+          query:{iid}
+        })
+        
+      }
     }
 }
 </script>
 
-<style>
+<style scoped>
   .goods-item {
     padding-bottom: 40px;
     position: relative;
@@ -48,9 +66,8 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-top: 10px;
-    margin-bottom: 2px;
-    font-size: 12px;
+    padding-top: 10px;
+    font-size: 10px;
   }
 
   .goods-info .price {
