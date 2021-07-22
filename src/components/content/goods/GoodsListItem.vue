@@ -35,7 +35,6 @@ export default {
           path:'/detail',
           query:{iid}
         })
-        
       }
     }
 }
